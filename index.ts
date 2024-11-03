@@ -568,7 +568,7 @@ const debitCardsDisallowed = (interaction: ChatInputCommandInteraction | ButtonI
 client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand()) return;
 	if (interaction.commandName !== "bank" && interaction.commandName !== "atm") return;
-	//if (interaction.commandName === "bank" && isBankClosed()) return await showBankCloseMessage(interaction)
+	if (interaction.commandName === "bank" && isBankClosed()) return await showBankCloseMessage(interaction)
 	const bankMessage = "Welcome to the bank! You currently have <:Gray_MJK_icon:1301689133885947976> " + (data.bankAmounts[interaction.user.id] ?? 0) + " in your account. What would you like to do?"
 	const atmMessage = "Welcome to the ATM! All transactions ahve a 15% fee to support the infrastructure of Mijovia. You currently have <:Gray_MJK_icon:1301689133885947976> " + (data.bankAmounts[interaction.user.id] ?? 0) + " in your account. What would you like to do?"
 	return await interaction.reply({
@@ -655,7 +655,7 @@ client.on(Events.InteractionCreate, async interaction => {
 client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isButton()) return;
 	if (interaction.customId !== "bank.debit_card" && interaction.customId !== "atm.debit_card") return;
-	//if (interaction.customId.startsWith("bank") && isBankClosed()) return await showBankCloseMessage(interaction)
+	if (interaction.customId.startsWith("bank") && isBankClosed()) return await showBankCloseMessage(interaction)
 	const userCards = data.cards[interaction.user.id]
 	return await interaction.reply({
 		embeds: [
@@ -729,7 +729,7 @@ const cards: DebitCard[] = [
 client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isButton()) return;
 	if (interaction.customId !== "bank.debit_card.get") return;
-	//if (interaction.customId.startsWith("bank") && isBankClosed()) return await showBankCloseMessage(interaction)
+	if (interaction.customId.startsWith("bank") && isBankClosed()) return await showBankCloseMessage(interaction)
 	if (debitCardsDisallowed(interaction)) return await interaction.reply({
 		content: debitCardsDisallowed(interaction)!,
 		allowedMentions: {
@@ -768,7 +768,7 @@ client.on(Events.InteractionCreate, async interaction => {
 client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isButton()) return;
 	if (!interaction.customId.startsWith("bank.debit_card.get.")) return;
-	//if (interaction.customId.startsWith("bank") && isBankClosed()) return await showBankCloseMessage(interaction)
+	if (interaction.customId.startsWith("bank") && isBankClosed()) return await showBankCloseMessage(interaction)
 	if (debitCardsDisallowed(interaction)) return await interaction.reply({
 		content: debitCardsDisallowed(interaction)!,
 		allowedMentions: {
